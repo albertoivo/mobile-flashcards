@@ -7,6 +7,7 @@ import {
   StyleSheet
 } from 'react-native'
 import { white, purple } from '../utils/colors'
+import { addDeck, getDecks } from '../utils/api'
 
 class AddDeck extends React.Component {
   constructor(props) {
@@ -15,12 +16,16 @@ class AddDeck extends React.Component {
   }
 
   handleSubmitBtn = title => {
-    alert(`${title} created. Now you can add cards and have fun.`)
-    console.log(this.props.navigation)
+    if (title && title.trim().length > 0) {
+      addDeck(title)
+      this.props.navigation.goBack()
+      getDecks()
+    } else {
+      alert('Title must be filled in!')
+    }
   }
 
   handleDeckTitle = title => {
-    console.log(title)
     this.setState({ title: title })
   }
 
@@ -33,6 +38,7 @@ class AddDeck extends React.Component {
           style={styles.input}
           onChangeText={this.handleDeckTitle}
           placeholder="Deck Title"
+          returnKeyType="done"
         />
         <TouchableOpacity
           style={styles.button}
@@ -51,9 +57,8 @@ const styles = StyleSheet.create({
   },
   button: {
     padding: 10,
-    backgroundColor: purple,
+    backgroundColor: 'black',
     alignSelf: 'center',
-    borderRadius: 5,
     margin: 20
   },
   buttonText: {
