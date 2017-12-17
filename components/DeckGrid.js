@@ -1,18 +1,33 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { receiveDecks } from '../actions'
 import { white, red } from '../utils/colors'
 
-export default class DeckGrid extends React.Component {
+class DeckGrid extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      decks: []
+    }
+  }
+  componentDidMount() {
+    this.props.dispatch(receiveDecks)
+  }
+  componentWillReceiveProps(nextProps) {
+    if (this.props.decks !== nextProps.decks) {
+      this.setState({ decks: nextProps.decks })
+    }
+  }
   render() {
+    const { navigate } = this.props.navigation
     return (
       <View style={styles.container}>
-        <View style={styles.deck}>
-          <Text style={styles.deckName}>This is a deck</Text>
-          <Text style={styles.cardTotalNumber}>3 cards</Text>
-        </View>
-        <TouchableOpacity
-          onPress={() => this.props.navigation.navigate('AddDeck')}
-        >
+        <TouchableOpacity style={styles.deck}>
+          <Text style={styles.deckName}>Deck 1</Text>
+          <Text style={styles.deckCardsQty}>3 cards</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigate('AddDeck')}>
           <Text style={styles.addDeckBtn}>+</Text>
         </TouchableOpacity>
       </View>
@@ -23,7 +38,7 @@ export default class DeckGrid extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'white',
     justifyContent: 'center'
   },
   deck: {
@@ -36,10 +51,10 @@ const styles = StyleSheet.create({
     padding: 5,
     fontSize: 30
   },
-  cardTotalNumber: {
-    opacity: 0.8,
+  deckCardsQty: {
     padding: 5,
-    fontSize: 20
+    fontSize: 20,
+    color: 'gray'
   },
   addDeckBtn: {
     textAlign: 'center',
@@ -58,3 +73,10 @@ const styles = StyleSheet.create({
     flexDirection: 'column'
   }
 })
+
+function mapStateToProps(state) {
+  console.log('*** MEU ESTADO DE DECKS:', state)
+  return { decks: state || [] }
+}
+
+export default connect(mapStateToProps)(DeckGrid)

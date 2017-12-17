@@ -1,13 +1,15 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import {
   View,
+  KeyboardAvoidingView,
   Text,
   TextInput,
   TouchableOpacity,
   StyleSheet
 } from 'react-native'
 import { white, purple } from '../utils/colors'
-import { addDeck, getDecks } from '../utils/api'
+import { addDeck } from '../actions'
 
 class AddDeck extends React.Component {
   constructor(props) {
@@ -15,13 +17,12 @@ class AddDeck extends React.Component {
     this.state = { title: '' }
   }
 
-  handleSubmitBtn = title => {
+  handleSubmitBtn = () => {
+    const { title } = this.state
     if (title && title.trim().length > 0) {
-      addDeck(title)
+      this.props.dispatch(addDeck({ title }))
+      alert(`${title} created. Now add some cards and have fun.`)
       this.props.navigation.goBack()
-      getDecks()
-    } else {
-      alert('Title must be filled in!')
     }
   }
 
@@ -32,28 +33,37 @@ class AddDeck extends React.Component {
   render() {
     const { title } = this.state
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView
+        style={styles.container}
+        keyboardVerticalOffset={0}
+        behavior="position"
+      >
         <Text style={styles.question}>What is the title of your new deck?</Text>
         <TextInput
           style={styles.input}
           onChangeText={this.handleDeckTitle}
           placeholder="Deck Title"
           returnKeyType="done"
+          maxLength={50}
+          multiline={true}
+          onSubmitEditing={() => this.handleSubmitBtn()}
         />
         <TouchableOpacity
           style={styles.button}
-          onPress={() => this.handleSubmitBtn(title)}
+          onPress={() => this.handleSubmitBtn()}
         >
           <Text style={styles.buttonText}>Submit</Text>
         </TouchableOpacity>
-      </View>
+      </KeyboardAvoidingView>
     )
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   button: {
     padding: 10,
@@ -72,9 +82,10 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   input: {
-    margin: 25,
-    height: 40
+    fontSize: 40,
+    textAlign: 'center',
+    padding: 10
   }
 })
 
-export default AddDeck
+export default connect()(AddDeck)

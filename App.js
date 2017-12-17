@@ -1,15 +1,27 @@
 import React from 'react'
-import { View, StyleSheet, StatusBar } from 'react-native'
+import {
+  View,
+  StyleSheet,
+  StatusBar,
+  TouchableOpacity,
+  Text
+} from 'react-native'
 import { StackNavigator } from 'react-navigation'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+import configureStore from './configureStore'
+import reducer from './reducers'
 import { black, red, white } from './utils/colors'
 import { Constants } from 'expo'
 import Home from './components/Home'
 import DeckGrid from './components/DeckGrid'
 import AddDeck from './components/AddDeck'
 
-const AppStatusBar = ({ backgroundColor, ...props }) => (
-  <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
-    <StatusBar translucent backgroundColor={backgroundColor} {...props} />
+const store = configureStore()
+
+const AppStatusBar = () => (
+  <View style={{ backgroundColor: black, height: Constants.statusBarHeight }}>
+    <StatusBar translucent barStyle="light-content" />
   </View>
 )
 
@@ -25,10 +37,12 @@ const MainNavigator = StackNavigator({
 export default class App extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <AppStatusBar backgroundColor={black} barStyle="light-content" />
-        <MainNavigator />
-      </View>
+      <Provider store={store}>
+        <View style={styles.container}>
+          <AppStatusBar backgroundColor={black} />
+          <MainNavigator />
+        </View>
+      </Provider>
     )
   }
 }
@@ -36,10 +50,5 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1
-  },
-  addDeckBtn: {
-    backgroundColor: 'red',
-    color: white,
-    alignSelf: 'flex-end'
   }
 })
