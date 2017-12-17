@@ -16,6 +16,7 @@ import { Constants } from 'expo'
 import Home from './components/Home'
 import DeckGrid from './components/DeckGrid'
 import AddDeck from './components/AddDeck'
+import AddCardToDeck from './components/AddCardToDeck'
 
 const store = configureStore()
 
@@ -27,10 +28,27 @@ const AppStatusBar = () => (
 
 const MainNavigator = StackNavigator({
   Home: {
-    screen: DeckGrid
+    screen: DeckGrid,
+    navigationOptions: {
+      title: 'Decks',
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: black
+      }
+    }
   },
   AddDeck: {
-    screen: AddDeck
+    screen: AddDeck,
+    navigationOptions: {
+      title: 'Add a Deck',
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: black
+      }
+    }
+  },
+  AddCard: {
+    screen: AddCardToDeck
   }
 })
 

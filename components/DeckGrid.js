@@ -1,6 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  ScrollView
+} from 'react-native'
 import { receiveDecks } from '../actions'
 import { white, red } from '../utils/colors'
 
@@ -11,26 +17,57 @@ class DeckGrid extends React.Component {
       decks: []
     }
   }
+
   componentDidMount() {
     this.props.dispatch(receiveDecks)
   }
+
   componentWillReceiveProps(nextProps) {
     if (this.props.decks !== nextProps.decks) {
       this.setState({ decks: nextProps.decks })
     }
   }
+
   render() {
     const { navigate } = this.props.navigation
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <TouchableOpacity style={styles.deck}>
           <Text style={styles.deckName}>Deck 1</Text>
           <Text style={styles.deckCardsQty}>3 cards</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigate('AddDeck')}>
-          <Text style={styles.addDeckBtn}>+</Text>
+        <TouchableOpacity style={styles.deck}>
+          <Text style={styles.deckName}>Deck 2</Text>
+          <Text style={styles.deckCardsQty}>3 cards</Text>
         </TouchableOpacity>
-      </View>
+        <TouchableOpacity style={styles.deck}>
+          <Text style={styles.deckName}>Deck 3</Text>
+          <Text style={styles.deckCardsQty}>3 cards</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.deck}>
+          <Text style={styles.deckName}>Deck 4</Text>
+          <Text style={styles.deckCardsQty}>3 cards</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.deck}>
+          <Text style={styles.deckName}>Deck 5</Text>
+          <Text style={styles.deckCardsQty}>3 cards</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.deck}
+          onPress={() =>
+            this.props.navigation.navigate('AddCard', { deck: 'Deck 6' })}
+        >
+          <Text style={styles.deckName}>Deck 6</Text>
+          <Text style={styles.deckCardsQty}>3 cards</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.addDeckBtn}
+          onPress={() => navigate('AddDeck')}
+        >
+          <Text style={styles.addDeckBtnText}>+</Text>
+        </TouchableOpacity>
+      </ScrollView>
     )
   }
 }
@@ -38,8 +75,7 @@ class DeckGrid extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
-    justifyContent: 'center'
+    backgroundColor: 'white'
   },
   deck: {
     borderBottomWidth: 1,
@@ -57,25 +93,24 @@ const styles = StyleSheet.create({
     color: 'gray'
   },
   addDeckBtn: {
-    textAlign: 'center',
-    textAlignVertical: 'center',
-    color: red,
-    fontSize: 40,
-    fontWeight: 'bold',
+    position: 'absolute'
+  },
+  addDeckBtnText: {
     height: 60,
     width: 60,
     borderWidth: 2,
     borderColor: red,
     borderRadius: 30,
     margin: 10,
-    alignSelf: 'flex-end',
-    justifyContent: 'flex-end',
-    flexDirection: 'column'
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    color: red,
+    fontSize: 40,
+    fontWeight: 'bold'
   }
 })
 
 function mapStateToProps(state) {
-  console.log('*** MEU ESTADO DE DECKS:', state)
   return { decks: state || [] }
 }
 

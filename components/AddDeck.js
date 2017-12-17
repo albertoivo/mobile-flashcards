@@ -33,58 +33,55 @@ class AddDeck extends React.Component {
   render() {
     const { title } = this.state
     return (
-      <KeyboardAvoidingView
-        style={styles.container}
-        keyboardVerticalOffset={0}
-        behavior="position"
-      >
+      <View style={styles.container} keyboardVerticalOffset={0}>
         <Text style={styles.question}>What is the title of your new deck?</Text>
         <TextInput
           style={styles.input}
           onChangeText={this.handleDeckTitle}
           placeholder="Deck Title"
           returnKeyType="done"
-          maxLength={50}
+          maxLength={40}
           multiline={true}
           onSubmitEditing={() => this.handleSubmitBtn()}
         />
         <TouchableOpacity
           style={styles.button}
           onPress={() => this.handleSubmitBtn()}
+          disabled={this.state.title.length === 0}
         >
           <Text style={styles.buttonText}>Submit</Text>
         </TouchableOpacity>
-      </KeyboardAvoidingView>
+      </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
+    flex: 1
   },
   button: {
     padding: 10,
     backgroundColor: 'black',
-    alignSelf: 'center',
-    margin: 20
+    margin: 20,
+    alignSelf: 'center'
   },
   buttonText: {
     color: white,
     fontSize: 20
   },
   question: {
-    padding: 30,
+    padding: 20,
     alignSelf: 'center',
-    fontSize: 40,
+    fontSize: 30,
     textAlign: 'center'
   },
   input: {
-    fontSize: 40,
+    fontSize: 24,
     textAlign: 'center',
     padding: 10
+    //flexDirection: 'column',
+    //alignItems: 'stretch'
   }
 })
 
