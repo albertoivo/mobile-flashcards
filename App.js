@@ -13,9 +13,9 @@ import configureStore from './configureStore'
 import reducer from './reducers'
 import { black, red, white } from './utils/colors'
 import { Constants } from 'expo'
-import Home from './components/Home'
 import DeckGrid from './components/DeckGrid'
 import AddDeck from './components/AddDeck'
+import Deck from './components/Deck'
 import AddCardToDeck from './components/AddCardToDeck'
 
 const store = configureStore()
@@ -46,6 +46,9 @@ const MainNavigator = StackNavigator({
         backgroundColor: black
       }
     }
+  },
+  Deck: {
+    screen: Deck
   },
   AddCard: {
     screen: AddCardToDeck

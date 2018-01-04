@@ -36,27 +36,18 @@ class DeckGrid extends React.Component {
           <Text style={styles.deckName}>Deck 1</Text>
           <Text style={styles.deckCardsQty}>3 cards</Text>
         </TouchableOpacity>
+
         <TouchableOpacity style={styles.deck}>
           <Text style={styles.deckName}>Deck 2</Text>
           <Text style={styles.deckCardsQty}>3 cards</Text>
         </TouchableOpacity>
+
         <TouchableOpacity style={styles.deck}>
           <Text style={styles.deckName}>Deck 3</Text>
           <Text style={styles.deckCardsQty}>3 cards</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.deck}>
-          <Text style={styles.deckName}>Deck 4</Text>
-          <Text style={styles.deckCardsQty}>3 cards</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.deck}>
-          <Text style={styles.deckName}>Deck 5</Text>
-          <Text style={styles.deckCardsQty}>3 cards</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.deck}
-          onPress={() =>
-            this.props.navigation.navigate('AddCard', { deck: 'Deck 6' })}
-        >
+
+        <TouchableOpacity style={styles.deck} onPress={() => navigate('Deck')}>
           <Text style={styles.deckName}>Deck 6</Text>
           <Text style={styles.deckCardsQty}>3 cards</Text>
         </TouchableOpacity>
@@ -101,12 +92,15 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: red,
     borderRadius: 30,
+    backgroundColor: red,
     margin: 10,
     textAlign: 'center',
     textAlignVertical: 'center',
-    color: red,
+    alignItems: 'center',
+    color: 'white',
     fontSize: 40,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    overflow: 'hidden'
   }
 })
 
