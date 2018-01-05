@@ -11,17 +11,19 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import configureStore from './configureStore'
 import reducer from './reducers'
-import { black, red, white } from './utils/colors'
+import { red } from './utils/colors'
 import { Constants } from 'expo'
 import DeckGrid from './components/DeckGrid'
 import AddDeck from './components/AddDeck'
 import Deck from './components/Deck'
+import Quiz from './components/Quiz'
+import Answer from './components/Answer'
 import AddCardToDeck from './components/AddCardToDeck'
 
 const store = configureStore()
 
 const AppStatusBar = () => (
-  <View style={{ backgroundColor: black, height: Constants.statusBarHeight }}>
+  <View style={{ backgroundColor: 'black', height: Constants.statusBarHeight }}>
     <StatusBar translucent barStyle="light-content" />
   </View>
 )
@@ -31,9 +33,9 @@ const MainNavigator = StackNavigator({
     screen: DeckGrid,
     navigationOptions: {
       title: 'Decks',
-      headerTintColor: white,
+      headerTintColor: 'white',
       headerStyle: {
-        backgroundColor: black
+        backgroundColor: 'black'
       }
     }
   },
@@ -41,17 +43,51 @@ const MainNavigator = StackNavigator({
     screen: AddDeck,
     navigationOptions: {
       title: 'Add a Deck',
-      headerTintColor: white,
+      headerTintColor: 'white',
       headerStyle: {
-        backgroundColor: black
+        backgroundColor: 'black'
       }
     }
   },
   Deck: {
-    screen: Deck
+    screen: Deck,
+    navigationOptions: {
+      title: 'Deck',
+      headerTintColor: 'white',
+      headerStyle: {
+        backgroundColor: 'black'
+      }
+    }
   },
-  AddCard: {
-    screen: AddCardToDeck
+  AddCardToDeck: {
+    screen: AddCardToDeck,
+    navigationOptions: {
+      title: 'Add Card',
+      headerTintColor: 'white',
+      headerStyle: {
+        backgroundColor: 'black'
+      }
+    }
+  },
+  Quiz: {
+    screen: Quiz,
+    navigationOptions: {
+      title: 'Question',
+      headerTintColor: 'white',
+      headerStyle: {
+        backgroundColor: 'black'
+      }
+    }
+  },
+  Answer: {
+    screen: Answer,
+    navigationOptions: {
+      title: 'Answer',
+      headerTintColor: 'white',
+      headerStyle: {
+        backgroundColor: 'black'
+      }
+    }
   }
 })
 
@@ -60,7 +96,7 @@ export default class App extends React.Component {
     return (
       <Provider store={store}>
         <View style={styles.container}>
-          <AppStatusBar backgroundColor={black} />
+          <AppStatusBar backgroundColor={'black'} />
           <MainNavigator />
         </View>
       </Provider>
