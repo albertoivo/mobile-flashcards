@@ -5,34 +5,23 @@ import { red } from '../utils/colors'
 
 class Answer extends React.Component {
   render() {
+    const { navigation } = this.props
+    const { navigate } = navigation
+    const { answer } = navigation.state.params
     return (
       <View style={styles.container}>
         <View>
-          <Text style={styles.answerText}>Answer</Text>
+          <Text style={styles.answerText}>{answer}</Text>
         </View>
 
         <View>
           <TouchableOpacity>
-            <Text
-              style={[
-                styles.answerBtn,
-                {
-                  backgroundColor: 'green'
-                }
-              ]}
-            >
+            <Text style={[styles.answerBtn, { backgroundColor: 'green' }]}>
               Correct
             </Text>
           </TouchableOpacity>
           <TouchableOpacity>
-            <Text
-              style={[
-                styles.answerBtn,
-                {
-                  backgroundColor: red
-                }
-              ]}
-            >
+            <Text style={[styles.answerBtn, { backgroundColor: red }]}>
               Wrong
             </Text>
           </TouchableOpacity>

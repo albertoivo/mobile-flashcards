@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   StyleSheet
 } from 'react-native'
+import uuidv1 from 'uuid/v1'
 import { addDeck } from '../actions'
 import { submitDeck } from '../utils/api'
 import { white, purple } from '../utils/colors'
@@ -23,7 +24,9 @@ class AddDeck extends React.Component {
     const { dispatch, navigation } = this.props
 
     if (title && title.trim().length > 0) {
-      dispatch(addDeck({ title, cards }))
+      const id = uuidv1()
+      // create a deck with an id, title and an empty array of cards
+      dispatch(addDeck({ id, title, cards }))
       navigation.goBack()
     }
   }

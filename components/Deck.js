@@ -11,7 +11,7 @@ class Deck extends React.Component {
       alert('You have to add some cards before starting quiz.')
       return
     } else {
-      navigate('Quiz')
+      navigate('Quiz', deck)
     }
   }
   render() {
@@ -25,7 +25,7 @@ class Deck extends React.Component {
           <Text style={styles.deckCardsQty}>{deck.cards.length} cards</Text>
         </View>
         <View>
-          <TouchableOpacity onPress={() => navigate('AddCardToDeck')}>
+          <TouchableOpacity onPress={() => navigate('AddCardToDeck', { deck })}>
             <Text style={styles.deckBtns}>Add Card</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => this.handleQuiz()}>

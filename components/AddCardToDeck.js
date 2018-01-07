@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { addCardToDeck } from '../actions'
 import {
   View,
   Text,
@@ -8,32 +9,68 @@ import {
   TouchableOpacity
 } from 'react-native'
 
-const AddCardToDeck = () => {
-  return (
-    <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        placeholder="Question"
-        maxLength={40}
-        multiline={true}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Answer"
-        maxLength={40}
-        multiline={true}
-      />
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttonText}>Submit</Text>
-      </TouchableOpacity>
-    </View>
-  )
+class AddCardToDeck extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      question: {},
+      answer: {}
+    }
+  }
+
+  handleSubmitBtn = () => {
+    const { dispatch, navigation } = this.props
+    const { deck } = navigation.state.params
+
+    const card = {
+      question: this.state.question,
+      answer: this.state.answer
+    }
+
+    dispatch(addCardToDeck(card, deck.id))
+    navigation.goBack()
+  }
+
+  handleDeckQuestion = question => {
+    this.setState({ question: question })
+  }
+
+  handleDeckAnswer = answer => {
+    this.setState({ answer: answer })
+  }
+
+  render() {
+    const { deck } = this.props.navigation.state.params
+    return (
+      <View style={{ flex: 1 }}>
+        <TextInput
+          style={styles.input}
+          placeholder="Question"
+          maxLength={40}
+          multiline={true}
+          onChangeText={this.handleDeckQuestion}
+        />
+
+        <TextInput
+          style={styles.input}
+          placeholder="Answer"
+          maxLength={40}
+          multiline={true}
+          onChangeText={this.handleDeckAnswer}
+        />
+
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => this.handleSubmitBtn()}
+        >
+          <Text style={styles.buttonText}>Submit</Text>
+        </TouchableOpacity>
+      </View>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  },
   input: {
     fontSize: 24,
     textAlign: 'center',
@@ -51,8 +88,4 @@ const styles = StyleSheet.create({
   }
 })
 
-function mapStateToProps(state) {
-  return state
-}
-
-export default connect(mapStateToProps)(AddCardToDeck)
+export default connect()(AddCardToDeck)

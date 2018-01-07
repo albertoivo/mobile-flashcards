@@ -8,7 +8,6 @@ import {
   ScrollView
 } from 'react-native'
 import { receiveDecks } from '../actions'
-import { getDecks } from '../utils/api'
 import { white, red } from '../utils/colors'
 
 class DeckGrid extends React.Component {

@@ -1,4 +1,8 @@
-import { ADD_DECK, RECEIVE_DECKS } from '../actions/ActionTypes'
+import {
+  ADD_DECK,
+  RECEIVE_DECKS,
+  ADD_CARD_TO_DECK
+} from '../actions/ActionTypes'
 
 function decks(state = { decks: [] }, action) {
   switch (action.type) {
@@ -14,6 +18,20 @@ function decks(state = { decks: [] }, action) {
       return Object.assign({}, state, {
         decks: action.decks
       })
+    }
+    case ADD_CARD_TO_DECK: {
+      return {
+        ...state,
+        decks: state.decks.map(deck => {
+          if (deck.id === action.deckId) {
+            return {
+              ...deck,
+              decks: deck.cards.push(action.card)
+            }
+          }
+          return deck
+        })
+      }
     }
     default:
       return state

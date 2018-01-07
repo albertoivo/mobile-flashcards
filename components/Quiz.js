@@ -5,17 +5,25 @@ import { red } from '../utils/colors'
 
 class Quiz extends React.Component {
   render() {
-    const { navigate } = this.props.navigation
+    const { navigation } = this.props
+    const { navigate } = navigation
+    const { cards } = navigation.state.params
+
     return (
-      <TouchableOpacity
-        style={styles.container}
-        onPress={() => navigate('Answer')}
-      >
-        <Text style={styles.question}>This is a question</Text>
-        <Text style={styles.seeTheAnswer}>
-          Touch the screen to see the answer
-        </Text>
-      </TouchableOpacity>
+      <View style={styles.container}>
+        {cards.map((card, index) => (
+          <TouchableOpacity
+            style={styles.container}
+            key={index}
+            onPress={() => navigate('Answer', card)}
+          >
+            <Text style={styles.question}>{card.question}</Text>
+            <Text style={styles.seeTheAnswer}>
+              Touch the screen to see the answer
+            </Text>
+          </TouchableOpacity>
+        ))}
+      </View>
     )
   }
 }
