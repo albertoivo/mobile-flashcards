@@ -11,7 +11,6 @@ import {
 const AddCardToDeck = () => {
   return (
     <View style={styles.container}>
-      {console.log('Props AddCardToDeck', this.props)}
       <TextInput
         style={styles.input}
         placeholder="Question"

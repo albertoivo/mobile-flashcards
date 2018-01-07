@@ -95,7 +95,7 @@ export default class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <View style={styles.container}>
+        <View style={{ flex: 1 }}>
           <AppStatusBar backgroundColor={'black'} />
           <MainNavigator />
         </View>
@@ -103,9 +103,3 @@ export default class App extends React.Component {
     )
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  }
-})

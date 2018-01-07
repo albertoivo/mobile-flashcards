@@ -1,20 +1,34 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 
-export default class Deck extends React.Component {
+class Deck extends React.Component {
+  handleQuiz() {
+    const { navigation } = this.props
+    const { navigate } = navigation
+    const { deck } = navigation.state.params
+    if (deck.cards.length === 0) {
+      alert('You have to add some cards before starting quiz.')
+      return
+    } else {
+      navigate('Quiz')
+    }
+  }
   render() {
-    const { navigate } = this.props.navigation
+    const { navigation } = this.props
+    const { navigate } = navigation
+    const { deck } = navigation.state.params
     return (
       <View style={styles.container}>
         <View>
-          <Text style={styles.deckName}>Deck 6</Text>
-          <Text style={styles.deckCardsQty}>3 cards</Text>
+          <Text style={styles.deckName}>{deck.title}</Text>
+          <Text style={styles.deckCardsQty}>{deck.cards.length} cards</Text>
         </View>
         <View>
           <TouchableOpacity onPress={() => navigate('AddCardToDeck')}>
             <Text style={styles.deckBtns}>Add Card</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigate('Quiz')}>
+          <TouchableOpacity onPress={() => this.handleQuiz()}>
             <Text
               style={[
                 styles.deckBtns,
@@ -43,12 +57,14 @@ const styles = StyleSheet.create({
   deckName: {
     fontWeight: 'bold',
     padding: 5,
-    fontSize: 30
+    fontSize: 30,
+    textAlign: 'center'
   },
   deckCardsQty: {
     padding: 5,
     fontSize: 20,
-    color: 'gray'
+    color: 'gray',
+    textAlign: 'center'
   },
   deckBtns: {
     paddingTop: 12,
@@ -63,3 +79,9 @@ const styles = StyleSheet.create({
     overflow: 'hidden'
   }
 })
+
+function mapStateToProps(state) {
+  return state
+}
+
+export default connect(mapStateToProps)(Deck)

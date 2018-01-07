@@ -8,21 +8,23 @@ import {
   TouchableOpacity,
   StyleSheet
 } from 'react-native'
-import { white, purple } from '../utils/colors'
 import { addDeck } from '../actions'
+import { submitDeck } from '../utils/api'
+import { white, purple } from '../utils/colors'
 
 class AddDeck extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { title: '' }
+    this.state = { title: '', cards: [] }
   }
 
   handleSubmitBtn = () => {
-    const { title } = this.state
+    const { title, cards } = this.state
+    const { dispatch, navigation } = this.props
+
     if (title && title.trim().length > 0) {
-      this.props.dispatch(addDeck({ title }))
-      alert(`${title} created. Now add some cards and have fun.`)
-      this.props.navigation.goBack()
+      dispatch(addDeck({ title, cards }))
+      navigation.goBack()
     }
   }
 
@@ -80,8 +82,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
     textAlign: 'center',
     padding: 10
-    //flexDirection: 'column',
-    //alignItems: 'stretch'
   }
 })
 

@@ -1,14 +1,17 @@
 import { AsyncStorage } from 'react-native'
 
-export const KEY = 'FlashcardMobile'
+export const STORAGE_KEY = 'FlashcardMobile'
 
 export const getDecks = () => {
-  return AsyncStorage.getItem(KEY)
+  return AsyncStorage.getItem(STORAGE_KEY)
+    .then(req => JSON.parse(req))
+    .then(json => console.log(json))
+    .catch(error => console.log('error!'))
 }
 
-export function addDeck({ title }) {
+export function submitDeck(title) {
   return AsyncStorage.mergeItem(
-    KEY,
+    STORAGE_KEY,
     JSON.stringify({
       [title]: title
     })
