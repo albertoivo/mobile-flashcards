@@ -4,7 +4,7 @@ import {
   ADD_CARD_TO_DECK
 } from '../actions/ActionTypes'
 
-function decks(state = { decks: [] }, action) {
+export default function decks(state = { decks: [] }, action) {
   switch (action.type) {
     case ADD_DECK: {
       const newDeck = state.decks.slice()
@@ -37,5 +37,3 @@ function decks(state = { decks: [] }, action) {
       return state
   }
 }
-
-export default decks
