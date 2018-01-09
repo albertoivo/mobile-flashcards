@@ -19,6 +19,7 @@ import Deck from './components/Deck'
 import Quiz from './components/Quiz'
 import Answer from './components/Answer'
 import AddCardToDeck from './components/AddCardToDeck'
+import { setLocalNotification } from './utils/notifications'
 
 const store = configureStore()
 
@@ -92,6 +93,9 @@ const MainNavigator = StackNavigator({
 })
 
 export default class App extends React.Component {
+  componentDidMount() {
+    setLocalNotification()
+  }
   render() {
     return (
       <Provider store={store}>
