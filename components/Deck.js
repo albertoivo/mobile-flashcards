@@ -3,10 +3,9 @@ import { connect } from 'react-redux'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 
 class Deck extends React.Component {
-  handleQuiz() {
-    const { navigation } = this.props
+  handleQuiz(deck) {
+    const { navigation, dispatch } = this.props
     const { navigate } = navigation
-    const { deck } = navigation.state.params
     if (deck.cards.length === 0) {
       alert('You have to add some cards before starting quiz.')
       return
@@ -14,6 +13,7 @@ class Deck extends React.Component {
       navigate('Quiz', deck)
     }
   }
+
   render() {
     const { navigation } = this.props
     const { navigate } = navigation
@@ -28,14 +28,11 @@ class Deck extends React.Component {
           <TouchableOpacity onPress={() => navigate('AddCardToDeck', { deck })}>
             <Text style={styles.deckBtns}>Add Card</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => this.handleQuiz()}>
+          <TouchableOpacity onPress={() => this.handleQuiz(deck)}>
             <Text
               style={[
                 styles.deckBtns,
-                {
-                  backgroundColor: 'black',
-                  color: 'white'
-                }
+                { backgroundColor: 'black', color: 'white' }
               ]}
             >
               Start Quiz

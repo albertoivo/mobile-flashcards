@@ -16,17 +16,16 @@ import { white, purple } from '../utils/colors'
 class AddDeck extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { title: '', cards: [] }
+    this.state = { title: '', cards: [], cardIndex: 0, result: 0 }
   }
 
   handleSubmitBtn = () => {
-    const { title, cards } = this.state
+    const { title, cards, cardIndex, result } = this.state
     const { dispatch, navigation } = this.props
 
     if (title && title.trim().length > 0) {
       const id = uuidv1()
-      // create a deck with an id, title and an empty array of cards
-      dispatch(addDeck({ id, title, cards }))
+      dispatch(addDeck({ id, title, cards, cardIndex, result }))
       navigation.goBack()
     }
   }

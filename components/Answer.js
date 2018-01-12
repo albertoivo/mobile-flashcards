@@ -1,26 +1,32 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { quizResult } from '../actions'
 import { red } from '../utils/colors'
 
 class Answer extends React.Component {
+  handleCorrect() {
+    const { dispatch, navigation } = this.props
+    const { id } = navigation.state.params
+
+    dispatch(quizResult(id, 'correct'))
+  }
+  handleWrong = () => console.log('wrong')
   render() {
     const { navigation } = this.props
     const { navigate } = navigation
     const { answer } = navigation.state.params
+
     return (
       <View style={styles.container}>
+        <Text style={styles.answerText}>{answer}</Text>
         <View>
-          <Text style={styles.answerText}>{answer}</Text>
-        </View>
-
-        <View>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => this.handleCorrect()}>
             <Text style={[styles.answerBtn, { backgroundColor: 'green' }]}>
               Correct
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => this.handleWrong()}>
             <Text style={[styles.answerBtn, { backgroundColor: red }]}>
               Wrong
             </Text>

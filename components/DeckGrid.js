@@ -1,13 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  ScrollView
-} from 'react-native'
-import { receiveDecks } from '../actions'
+import { StyleSheet, Text, TouchableOpacity, ScrollView } from 'react-native'
 import { white, red } from '../utils/colors'
 
 class DeckGrid extends React.Component {

@@ -1,4 +1,9 @@
-import { ADD_DECK, RECEIVE_DECKS, ADD_CARD_TO_DECK } from './ActionTypes'
+import {
+  ADD_DECK,
+  RECEIVE_DECKS,
+  ADD_CARD_TO_DECK,
+  QUIZ_RESULT
+} from './ActionTypes'
 
 export function receiveDecks(decks) {
   return {
@@ -19,5 +24,13 @@ export function addCardToDeck(card, deckId) {
     type: ADD_CARD_TO_DECK,
     card,
     deckId
+  }
+}
+
+export function quizResult(deckId, myAnswer) {
+  return {
+    type: QUIZ_RESULT,
+    deckId,
+    myAnswer
   }
 }

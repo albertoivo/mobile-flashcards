@@ -1,29 +1,34 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity } from 'react-native'
 import { red } from '../utils/colors'
 
 class Quiz extends React.Component {
   render() {
-    const { navigation } = this.props
+    const { navigation, myDeck } = this.props
     const { navigate } = navigation
-    const { cards } = navigation.state.params
+
+    console.log('*********************************', myDeck)
 
     return (
-      <View style={styles.container}>
-        {cards.map((card, index) => (
-          <TouchableOpacity
-            style={styles.container}
-            key={index}
-            onPress={() => navigate('Answer', card)}
-          >
-            <Text style={styles.question}>{card.question}</Text>
-            <Text style={styles.seeTheAnswer}>
-              Touch the screen to see the answer
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </View>
+      <TouchableOpacity
+        style={styles.container}
+        onPress={() =>
+          navigate(
+            'Answer',
+            (info = {
+              answer: myDeck[0].cards[myDeck[0].cardIndex].answer,
+              id: myDeck[0].id
+            })
+          )}
+      >
+        <Text style={styles.question}>
+          {myDeck[0].cards[myDeck[0].cardIndex].question}
+        </Text>
+        <Text style={styles.seeTheAnswer}>
+          Touch the screen to see the answer
+        </Text>
+      </TouchableOpacity>
     )
   }
 }
@@ -48,4 +53,16 @@ const styles = StyleSheet.create({
   }
 })
 
-export default connect()(Quiz)
+const mapStateToProps = (state, { navigation }) => {
+  return {
+    myDeck: state.decks.map(deck => {
+      if (deck.id === navigation.state.params.id) {
+        return {
+          ...deck
+        }
+      }
+    })
+  }
+}
+
+export default connect(mapStateToProps)(Quiz)
