@@ -8,8 +8,6 @@ class Quiz extends React.Component {
     const { navigation, myDeck } = this.props
     const { navigate } = navigation
 
-    console.log('*********************************', myDeck)
-
     return (
       <TouchableOpacity
         style={styles.container}

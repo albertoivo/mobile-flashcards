@@ -11,7 +11,12 @@ class Answer extends React.Component {
 
     dispatch(quizResult(id, 'correct'))
   }
-  handleWrong = () => console.log('wrong')
+  handleWrong() {
+    const { dispatch, navigation } = this.props
+    const { id } = navigation.state.params
+
+    dispatch(quizResult(id, 'wrong'))
+  }
   render() {
     const { navigation } = this.props
     const { navigate } = navigation

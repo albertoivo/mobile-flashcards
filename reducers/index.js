@@ -41,11 +41,12 @@ export default function decks(state = { decks: [] }, action) {
           if (deck.id === action.deckId) {
             return {
               ...deck,
-              result:
-                action.myAnswer === 'correct'
-                  ? deck.result + 1
-                  : deck.result - 1,
-              cardIndex: deck.cardIndex + 1
+              score:
+                action.myAnswer === 'correct' ? deck.score + 1 : deck.score - 1,
+              cardIndex:
+                deck.cardIndex === deck.cards.length - 1
+                  ? 0
+                  : deck.cardIndex + 1
             }
             return deck
           }
