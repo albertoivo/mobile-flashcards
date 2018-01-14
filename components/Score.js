@@ -16,11 +16,18 @@ class Score extends React.Component {
     this.props.navigation.navigate('Home')
   }
   render() {
+    const { score } = this.props.myDeck[0]
     return (
       <View style={styles.container}>
-        <Text style={styles.score}>{this.props.myDeck[0].score}</Text>
+        <Text style={styles.scoreText}>Your score on this deck was:</Text>
+        <Text style={styles.score}>{score}</Text>
+        {score > 0 ? (
+          <Text>Congratulations!!!</Text>
+        ) : (
+          <Text>Better luck next time...</Text>
+        )}
         <TouchableOpacity onPress={() => this.handleScore()}>
-          <Text style={{ backgroundColor: 'green' }}>Correct</Text>
+          <Text style={styles.okBtn}>Home</Text>
         </TouchableOpacity>
       </View>
     )
@@ -35,10 +42,14 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   score: {
+    fontSize: 60
+  },
+  scoreText: {
     fontSize: 24
   },
-  answerBtn: {
+  okBtn: {
     color: 'white',
+    backgroundColor: 'black',
     paddingTop: 12,
     paddingBottom: 12,
     width: 250,
