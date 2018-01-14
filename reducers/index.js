@@ -48,8 +48,8 @@ export default function decks(state = { decks: [] }, action) {
                   ? 0
                   : deck.cardIndex + 1
             }
-            return deck
           }
+          return deck
         })
       }
     }

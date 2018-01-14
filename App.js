@@ -18,6 +18,7 @@ import AddDeck from './components/AddDeck'
 import Deck from './components/Deck'
 import Quiz from './components/Quiz'
 import Answer from './components/Answer'
+import Score from './components/Score'
 import AddCardToDeck from './components/AddCardToDeck'
 import { setLocalNotification } from './utils/notifications'
 
@@ -82,6 +83,16 @@ const MainNavigator = StackNavigator({
   },
   Answer: {
     screen: Answer,
+    navigationOptions: {
+      title: 'Answer',
+      headerTintColor: 'white',
+      headerStyle: {
+        backgroundColor: 'black'
+      }
+    }
+  },
+  Score: {
+    screen: Score,
     navigationOptions: {
       title: 'Answer',
       headerTintColor: 'white',

@@ -6,16 +6,30 @@ import { red } from '../utils/colors'
 
 class Answer extends React.Component {
   handleCorrect() {
-    const { dispatch, navigation } = this.props
+    const { dispatch, navigation, myDeck } = this.props
     const { id } = navigation.state.params
 
     dispatch(quizResult(id, 'correct'))
+    if (this.isItFinished()) {
+      navigation.navigate('Score', { id: myDeck[0].id })
+    } else {
+      navigation.goBack()
+    }
   }
   handleWrong() {
-    const { dispatch, navigation } = this.props
+    const { dispatch, navigation, myDeck } = this.props
     const { id } = navigation.state.params
 
     dispatch(quizResult(id, 'wrong'))
+    if (this.isItFinished()) {
+      navigation.navigate('Score', { id: myDeck[0].id })
+    } else {
+      navigation.goBack()
+    }
+  }
+  isItFinished() {
+    const { cardIndex, cardsLength } = this.props.navigation.state.params
+    return cardsLength - 1 === cardIndex
   }
   render() {
     const { navigation } = this.props
@@ -66,4 +80,10 @@ const styles = StyleSheet.create({
   }
 })
 
-export default connect()(Answer)
+const mapStateToProps = (state, { navigation }) => {
+  return {
+    myDeck: state.decks.filter(deck => deck.id === navigation.state.params.id)
+  }
+}
+
+export default connect(mapStateToProps)(Answer)
