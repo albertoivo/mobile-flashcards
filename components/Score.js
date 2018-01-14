@@ -1,27 +1,27 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import { resetScoreAndIndex } from '../actions'
 
 class Score extends React.Component {
-  componentDidMount() {
-    console.log('****   componentDidMount   ****')
-  }
-
   componentWillUnmount() {
-    console.log('****   componentWillUnmount   ****')
+    const { id } = this.props.navigation.state.params
+    this.props.dispatch(resetScoreAndIndex(id))
   }
 
   handleScore() {
-    console.log(this.props.navigation)
     this.props.navigation.navigate('Home')
+    const { id } = this.props.navigation.state.params
+    this.props.dispatch(resetScoreAndIndex(id))
   }
   render() {
     const { score } = this.props.myDeck[0]
+    const { id, cardsLength } = this.props.navigation.state.params
     return (
       <View style={styles.container}>
         <Text style={styles.scoreText}>Your score on this deck was:</Text>
         <Text style={styles.score}>{score}</Text>
-        {score > 0 ? (
+        {score * (100 / cardsLength) > 33 ? (
           <Text>Congratulations!!!</Text>
         ) : (
           <Text>Better luck next time...</Text>

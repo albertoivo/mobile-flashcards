@@ -2,7 +2,8 @@ import {
   ADD_DECK,
   RECEIVE_DECKS,
   ADD_CARD_TO_DECK,
-  QUIZ_RESULT
+  QUIZ_RESULT,
+  RESET_SCORE_AND_INDEX
 } from './ActionTypes'
 
 export function receiveDecks(decks) {
@@ -32,5 +33,12 @@ export function quizResult(deckId, myAnswer) {
     type: QUIZ_RESULT,
     deckId,
     myAnswer
+  }
+}
+
+export function resetScoreAndIndex(deckId) {
+  return {
+    type: RESET_SCORE_AND_INDEX,
+    deckId
   }
 }

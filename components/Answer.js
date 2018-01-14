@@ -7,22 +7,28 @@ import { red } from '../utils/colors'
 class Answer extends React.Component {
   handleCorrect() {
     const { dispatch, navigation, myDeck } = this.props
-    const { id } = navigation.state.params
+    const { id, cardsLength } = navigation.state.params
 
     dispatch(quizResult(id, 'correct'))
     if (this.isItFinished()) {
-      navigation.navigate('Score', { id: myDeck[0].id })
+      navigation.navigate('Score', {
+        id: id,
+        cardsLength: cardsLength
+      })
     } else {
       navigation.goBack()
     }
   }
   handleWrong() {
     const { dispatch, navigation, myDeck } = this.props
-    const { id } = navigation.state.params
+    const { id, cardsLength } = navigation.state.params
 
     dispatch(quizResult(id, 'wrong'))
     if (this.isItFinished()) {
-      navigation.navigate('Score', { id: myDeck[0].id })
+      navigation.navigate('Score', {
+        id: id,
+        cardsLength: cardsLength
+      })
     } else {
       navigation.goBack()
     }

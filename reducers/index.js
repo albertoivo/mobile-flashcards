@@ -2,7 +2,8 @@ import {
   ADD_DECK,
   RECEIVE_DECKS,
   ADD_CARD_TO_DECK,
-  QUIZ_RESULT
+  QUIZ_RESULT,
+  RESET_SCORE_AND_INDEX
 } from '../actions/ActionTypes'
 
 export default function decks(state = { decks: [] }, action) {
@@ -42,11 +43,26 @@ export default function decks(state = { decks: [] }, action) {
             return {
               ...deck,
               score:
-                action.myAnswer === 'correct' ? deck.score + 1 : deck.score - 1,
+                action.myAnswer === 'correct' ? deck.score + 1 : deck.score,
               cardIndex:
                 deck.cardIndex === deck.cards.length - 1
                   ? 0
                   : deck.cardIndex + 1
+            }
+          }
+          return deck
+        })
+      }
+    }
+    case RESET_SCORE_AND_INDEX: {
+      return {
+        ...state,
+        decks: state.decks.map(deck => {
+          if (deck.id === action.deckId) {
+            return {
+              ...deck,
+              score: 0,
+              cardIndex: 0
             }
           }
           return deck
