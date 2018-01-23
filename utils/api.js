@@ -1,19 +1,25 @@
 import { AsyncStorage } from 'react-native'
 
-export const STORAGE_KEY = 'FlashcardMobile'
+export const STORAGE_KEY = 'IvoFlashcardMobile'
 
 export const getDecks = () => {
-  return AsyncStorage.getItem(STORAGE_KEY)
-    .then(req => JSON.parse(req))
-    .then(json => console.log(json))
-    .catch(error => console.log('error!'))
+  return AsyncStorage.getItem(STORAGE_KEY).then(req => JSON.parse(req))
+  //.then(json => console.log(json))
+  //.catch(error => console.log('error!'))
 }
 
-export function submitDeck(title) {
+export function submitDeck(deck) {
   return AsyncStorage.mergeItem(
     STORAGE_KEY,
-    JSON.stringify({
-      [title]: title
-    })
+    JSON.stringify({ [deck.id]: deck })
   )
+}
+
+export function removeEntry(deck_id) {
+  return AsyncStorage.getItem(STORAGE_KEY).then(results => {
+    const data = JSON.parse(results)
+    data[deck_id] = undefined
+    delete data[deck_id]
+    AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(data))
+  })
 }

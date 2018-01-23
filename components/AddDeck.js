@@ -10,7 +10,7 @@ import {
 } from 'react-native'
 import uuidv1 from 'uuid/v1'
 import { addDeck } from '../actions'
-import { submitDeck } from '../utils/api'
+import { submitDeck, getDecks } from '../utils/api'
 import { white, purple } from '../utils/colors'
 
 class AddDeck extends React.Component {
@@ -26,6 +26,8 @@ class AddDeck extends React.Component {
     if (title && title.trim().length > 0) {
       const id = uuidv1()
       dispatch(addDeck({ id, title, cards, cardIndex, score }))
+      submitDeck({ id, title, cards, cardIndex, score })
+      console.log('*** GET DECKS:', getDecks())
       navigation.goBack()
     }
   }

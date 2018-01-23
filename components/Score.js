@@ -29,7 +29,7 @@ class Score extends React.Component {
           <Text style={styles.congrats}>Congratulations!!!</Text>
         ) : (
           <Text style={styles.betterLuck}>
-            You missed more than 60% of the deck. Better luck next time...
+            Your score was less than 60% of the deck. Better luck next time...
           </Text>
         )}
         <TouchableOpacity onPress={() => this.home()}>
