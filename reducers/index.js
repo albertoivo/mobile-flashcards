@@ -6,7 +6,12 @@ import {
   RESET_SCORE_AND_INDEX
 } from '../actions/ActionTypes'
 
-export default function decks(state = { decks: [] }, action) {
+const initialState = {
+  decks: [],
+  loaded: false
+}
+
+export default function decks(state = initialState, action) {
   switch (action.type) {
     case ADD_DECK: {
       const newDeck = state.decks.slice()

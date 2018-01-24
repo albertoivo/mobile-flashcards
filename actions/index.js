@@ -1,3 +1,4 @@
+import * as api from '../utils/api'
 import {
   ADD_DECK,
   RECEIVE_DECKS,
@@ -41,4 +42,21 @@ export function resetScoreAndIndex(deckId) {
     type: RESET_SCORE_AND_INDEX,
     deckId
   }
+}
+
+export const fetchDecks = () => {
+  return dispatch => {
+    return api.getDecks().then(deck => {
+      if (deck !== null) {
+        const decks = Object.keys(deck).map(key => deck[key])
+        dispatch(receiveDecks(decks))
+      }
+    })
+  }
+}
+
+//as
+export const submitDeck = deck => {
+  api.submitDeck(deck)
+  return dispatch => dispatch(addDeck(deck))
 }

@@ -1,25 +1,35 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { StyleSheet, Text, TouchableOpacity, ScrollView } from 'react-native'
+import { submitDeck, getDecks } from '../utils/api'
+import { fetchDecks } from '../actions'
 import { white, red } from '../utils/colors'
 
 class DeckGrid extends React.Component {
+  componentDidMount() {
+    const { dispatch } = this.props
+    dispatch(fetchDecks())
+  }
+
   render() {
     const { navigate } = this.props.navigation
-    const { decks } = this.props
+    const { decks, loaded } = this.props
 
     return (
       <ScrollView style={{ flex: 1 }}>
-        {decks.map((deck, index) => (
-          <TouchableOpacity
-            key={index}
-            style={styles.deck}
-            onPress={() => navigate('Deck', { deck })}
-          >
-            <Text style={styles.deckName}>{deck.title}</Text>
-            <Text style={styles.deckCardsQty}>{deck.cards.length} cards</Text>
-          </TouchableOpacity>
-        ))}
+        {decks &&
+          decks !== null &&
+          decks.map((deck, index) => (
+            <TouchableOpacity
+              key={index}
+              style={styles.deck}
+              onPress={() => navigate('Deck', { deck })}
+            >
+              <Text style={styles.deckName}>{deck.title}</Text>
+              <Text style={styles.deckCardsQty}>{deck.cards.length} cards</Text>
+            </TouchableOpacity>
+          ))}
+        {!decks && <Text>Carregando...</Text>}
 
         <TouchableOpacity onPress={() => navigate('AddDeck')}>
           <Text style={styles.addDeckBtnText}>Add a new Deck</Text>
@@ -58,7 +68,10 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps(state) {
-  return { decks: state.decks || [] }
+  return {
+    decks: state.decks,
+    loaded: state.loaded
+  }
 }
 
 export default connect(mapStateToProps)(DeckGrid)

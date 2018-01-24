@@ -1,11 +1,9 @@
 import { AsyncStorage } from 'react-native'
 
-export const STORAGE_KEY = 'IvoFlashcardMobile'
+export const STORAGE_KEY = 'aaFlashcardMobile'
 
 export const getDecks = () => {
   return AsyncStorage.getItem(STORAGE_KEY).then(req => JSON.parse(req))
-  //.then(json => console.log(json))
-  //.catch(error => console.log('error!'))
 }
 
 export function submitDeck(deck) {

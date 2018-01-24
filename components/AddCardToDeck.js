@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { addCardToDeck } from '../actions'
+import { submitDeck } from '../utils/api'
 import {
   View,
   Text,
@@ -27,7 +28,12 @@ class AddCardToDeck extends React.Component {
       answer: this.state.answer
     }
 
+    Object.assign({}, deck, {
+      cards: deck.cards.push(card)
+    })
+
     dispatch(addCardToDeck(card, deck.id))
+    //submitDeck(deck)
     navigation.goBack()
   }
 
