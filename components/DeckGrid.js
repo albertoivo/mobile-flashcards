@@ -29,8 +29,6 @@ class DeckGrid extends React.Component {
               <Text style={styles.deckCardsQty}>{deck.cards.length} cards</Text>
             </TouchableOpacity>
           ))}
-        {!decks && <Text>Carregando...</Text>}
-
         <TouchableOpacity onPress={() => navigate('AddDeck')}>
           <Text style={styles.addDeckBtnText}>Add a new Deck</Text>
         </TouchableOpacity>

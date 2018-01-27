@@ -7,8 +7,7 @@ import {
 } from '../actions/ActionTypes'
 
 const initialState = {
-  decks: [],
-  loaded: false
+  decks: []
 }
 
 export default function decks(state = initialState, action) {

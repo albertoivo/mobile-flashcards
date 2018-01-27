@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { red } from '../utils/colors'
 
 class Deck extends React.Component {
   handleQuiz(deck) {
@@ -14,6 +15,11 @@ class Deck extends React.Component {
     }
   }
 
+  handleRemoveDeck(deck) {
+    const { navigation, dispatch } = this.props
+    const { navigate } = navigation
+  }
+
   render() {
     const { navigation } = this.props
     const { navigate } = navigation
@@ -25,9 +31,6 @@ class Deck extends React.Component {
           <Text style={styles.deckCardsQty}>{deck.cards.length} cards</Text>
         </View>
         <View>
-          <TouchableOpacity onPress={() => navigate('AddCardToDeck', { deck })}>
-            <Text style={styles.deckBtns}>Add Card</Text>
-          </TouchableOpacity>
           <TouchableOpacity onPress={() => this.handleQuiz(deck)}>
             <Text
               style={[
@@ -37,6 +40,12 @@ class Deck extends React.Component {
             >
               Start Quiz
             </Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigate('AddCardToDeck', { deck })}>
+            <Text style={styles.deckBtns}>Add Card</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => this.handleRemoveDeck(deck)}>
+            <Text style={styles.removeDeck}>Remove Deck</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -74,6 +83,18 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     overflow: 'hidden'
+  },
+  removeDeck: {
+    width: 250,
+    borderWidth: 2,
+    borderRadius: 10,
+    margin: 4,
+    textAlign: 'center',
+    fontSize: 18,
+    fontWeight: 'bold',
+    overflow: 'hidden',
+    color: 'red',
+    borderWidth: 0
   }
 })
 

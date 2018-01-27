@@ -28,12 +28,8 @@ class AddCardToDeck extends React.Component {
       answer: this.state.answer
     }
 
-    Object.assign({}, deck, {
-      cards: deck.cards.push(card)
-    })
-
     dispatch(addCardToDeck(card, deck.id))
-    //submitDeck(deck)
+    submitDeck(deck)
     navigation.goBack()
   }
 

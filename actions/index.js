@@ -55,8 +55,9 @@ export const fetchDecks = () => {
   }
 }
 
-//as
 export const submitDeck = deck => {
-  api.submitDeck(deck)
-  return dispatch => dispatch(addDeck(deck))
+  return dispatch => {
+    api.submitDeck(deck)
+    dispatch(addDeck(deck))
+  }
 }
