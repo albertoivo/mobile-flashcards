@@ -6,14 +6,14 @@ export const getDecks = () => {
   return AsyncStorage.getItem(STORAGE_KEY).then(req => JSON.parse(req))
 }
 
-export function submitDeck(deck) {
+export function submitEntry(deck) {
   return AsyncStorage.mergeItem(
     STORAGE_KEY,
     JSON.stringify({ [deck.id]: deck })
   )
 }
 
-export function removeDeck(deck_id) {
+export function removeEntry(deck_id) {
   return AsyncStorage.getItem(STORAGE_KEY).then(results => {
     const data = JSON.parse(results)
     data[deck_id] = undefined

@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { StyleSheet, Text, TouchableOpacity, ScrollView } from 'react-native'
-import { submitDeck, getDecks } from '../utils/api'
+import * as api from '../utils/api'
 import { fetchDecks } from '../actions'
 import { white, red } from '../utils/colors'
 

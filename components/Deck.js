@@ -2,6 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import { red } from '../utils/colors'
+import { removeDeck } from '../actions'
+import * as api from '../utils/api'
 
 class Deck extends React.Component {
   handleQuiz(deck) {
@@ -15,9 +17,14 @@ class Deck extends React.Component {
     }
   }
 
-  handleRemoveDeck(deck) {
+  handleRemoveDeck(id) {
     const { navigation, dispatch } = this.props
     const { navigate } = navigation
+
+    dispatch(removeDeck(id))
+    api.removeEntry(id)
+
+    navigation.goBack()
   }
 
   render() {
@@ -44,7 +51,7 @@ class Deck extends React.Component {
           <TouchableOpacity onPress={() => navigate('AddCardToDeck', { deck })}>
             <Text style={styles.deckBtns}>Add Card</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => this.handleRemoveDeck(deck)}>
+          <TouchableOpacity onPress={() => this.handleRemoveDeck(deck.id)}>
             <Text style={styles.removeDeck}>Remove Deck</Text>
           </TouchableOpacity>
         </View>

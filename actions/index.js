@@ -4,7 +4,8 @@ import {
   RECEIVE_DECKS,
   ADD_CARD_TO_DECK,
   QUIZ_RESULT,
-  RESET_SCORE_AND_INDEX
+  RESET_SCORE_AND_INDEX,
+  REMOVE_DECK
 } from './ActionTypes'
 
 export function receiveDecks(decks) {
@@ -18,6 +19,13 @@ export function addDeck(deck) {
   return {
     type: ADD_DECK,
     deck
+  }
+}
+
+export function removeDeck(id) {
+  return {
+    type: REMOVE_DECK,
+    id
   }
 }
 
@@ -52,12 +60,5 @@ export const fetchDecks = () => {
         dispatch(receiveDecks(decks))
       }
     })
-  }
-}
-
-export const submitDeck = deck => {
-  return dispatch => {
-    api.submitDeck(deck)
-    dispatch(addDeck(deck))
   }
 }

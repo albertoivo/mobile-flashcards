@@ -3,7 +3,8 @@ import {
   RECEIVE_DECKS,
   ADD_CARD_TO_DECK,
   QUIZ_RESULT,
-  RESET_SCORE_AND_INDEX
+  RESET_SCORE_AND_INDEX,
+  REMOVE_DECK
 } from '../actions/ActionTypes'
 
 const initialState = {
@@ -24,6 +25,13 @@ export default function decks(state = initialState, action) {
       return Object.assign({}, state, {
         decks: action.decks
       })
+    }
+    case REMOVE_DECK: {
+      console.log('*** ACTION:', action)
+      return {
+        ...state,
+        decks: state.decks.filter(deck => deck.id !== action.id)
+      }
     }
     case ADD_CARD_TO_DECK: {
       return {

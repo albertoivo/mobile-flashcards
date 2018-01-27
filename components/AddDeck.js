@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import {
   View,
-  KeyboardAvoidingView,
   Text,
   TextInput,
   TouchableOpacity,
@@ -10,8 +9,7 @@ import {
 } from 'react-native'
 import uuidv1 from 'uuid/v1'
 import { addDeck } from '../actions'
-import { submitDeck } from '../utils/api'
-import { white, purple } from '../utils/colors'
+import * as api from '../utils/api'
 
 class AddDeck extends React.Component {
   constructor(props) {
@@ -26,7 +24,7 @@ class AddDeck extends React.Component {
     if (title && title.trim().length > 0) {
       const id = uuidv1()
       dispatch(addDeck({ id, title, cards, cardIndex, score }))
-      submitDeck({ id, title, cards, cardIndex, score })
+      api.submitEntry({ id, title, cards, cardIndex, score })
       navigation.goBack()
     }
   }
@@ -72,7 +70,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   buttonText: {
-    color: white,
+    color: 'white',
     fontSize: 20
   },
   question: {
