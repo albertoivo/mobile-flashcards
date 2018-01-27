@@ -27,7 +27,6 @@ export default function decks(state = initialState, action) {
       })
     }
     case REMOVE_DECK: {
-      console.log('*** ACTION:', action)
       return {
         ...state,
         decks: state.decks.filter(deck => deck.id !== action.id)
