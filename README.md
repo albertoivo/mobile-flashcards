@@ -10,6 +10,7 @@ This is an app (iOS and Android) built purely with React Native that allows user
 
 -   [Prerequisites](#prerequisites)
 -   [Getting Started](#getting-started)
+-   [Developed with](#developed-with)
 -   [Contributing](#contributing)
 -   [Author](#author)
 -   [License](#license)
@@ -37,6 +38,11 @@ Then install all the dependencies of project and start it:
 To view without a simulator installed in your computer, you just need to install the [Expo](https://expo.io/ app on your smartphone. It will allow you to scan the QR Code displayed in the Terminal to run the app.
 
 If all went well, you will see the Home Screen.
+
+## Developed with
+
+* [React Native](http://facebook.github.io/react-native) - Framework for building native apps using React
+* [Yarn](https://yarnpkg.com/en/) - Dependency management
 
 ## Contributing
 
