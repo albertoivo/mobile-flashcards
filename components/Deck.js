@@ -31,6 +31,7 @@ class Deck extends React.Component {
     const { navigation } = this.props
     const { navigate } = navigation
     const { deck } = navigation.state.params
+
     return (
       <View style={styles.container}>
         <View>

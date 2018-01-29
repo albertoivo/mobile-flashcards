@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import { clearLocalNotification } from '../utils/notifications'
 import { resetScoreAndIndex } from '../actions'
 import { red } from '../utils/colors'
 
@@ -8,16 +9,21 @@ class Score extends React.Component {
   componentWillUnmount() {
     const { id } = this.props.navigation.state.params
     this.props.dispatch(resetScoreAndIndex(id))
+    clearLocalNotification()
   }
 
-  home() {
-    this.props.navigation.navigate('Home')
-    const { id } = this.props.navigation.state.params
-    this.props.dispatch(resetScoreAndIndex(id))
+  restartQuiz() {
+    const { navigation, deck } = this.props
+    navigation.navigate('Quiz', deck)
+  }
+
+  backToDeck() {
+    const { navigation, deck } = this.props
+    navigation.navigate('Deck', { deck })
   }
 
   render() {
-    const { score } = this.props.myDeck[0]
+    const { score } = this.props.deck
     const { id, cardsLength } = this.props.navigation.state.params
     return (
       <View style={styles.container}>
@@ -32,9 +38,14 @@ class Score extends React.Component {
             Your score was less than 60% of the deck. Better luck next time...
           </Text>
         )}
-        <TouchableOpacity onPress={() => this.home()}>
-          <Text style={styles.homeBtn}>Home</Text>
-        </TouchableOpacity>
+        <View>
+          <TouchableOpacity onPress={() => this.restartQuiz()}>
+            <Text style={styles.homeBtn}>Restart Quiz</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => this.backToDeck()}>
+            <Text style={styles.homeBtn}>Back to Deck</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     )
   }
@@ -76,7 +87,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state, { navigation }) => {
   return {
-    myDeck: state.decks.filter(deck => deck.id === navigation.state.params.id)
+    deck: state.decks.find(deck => deck.id === navigation.state.params.id)
   }
 }
 

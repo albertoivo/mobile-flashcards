@@ -14,23 +14,26 @@ class AddCardToDeck extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      question: {},
-      answer: {}
+      question: '',
+      answer: ''
     }
   }
 
   handleSubmitBtn = () => {
     const { dispatch, navigation } = this.props
     const { deck } = navigation.state.params
+    const { question, answer } = this.state
 
-    const card = {
-      question: this.state.question,
-      answer: this.state.answer
+    if (question !== '' && answer !== '') {
+      const card = {
+        question: this.state.question,
+        answer: this.state.answer
+      }
+
+      dispatch(addCardToDeck(card, deck.id))
+      api.submitEntry(deck)
+      navigation.goBack()
     }
-
-    dispatch(addCardToDeck(card, deck.id))
-    api.submitEntry(deck)
-    navigation.goBack()
   }
 
   handleDeckQuestion = question => {

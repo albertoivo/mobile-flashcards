@@ -23,9 +23,10 @@ class AddDeck extends React.Component {
 
     if (title && title.trim().length > 0) {
       const id = uuidv1()
-      dispatch(addDeck({ id, title, cards, cardIndex, score }))
-      api.submitEntry({ id, title, cards, cardIndex, score })
-      navigation.goBack()
+      deck = { id, title, cards, cardIndex, score }
+      dispatch(addDeck(deck))
+      api.submitEntry(deck)
+      navigation.navigate('Deck', { deck })
     }
   }
 

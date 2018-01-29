@@ -15,15 +15,18 @@ class Quiz extends React.Component {
           navigate(
             'Answer',
             (info = {
-              answer: myDeck[0].cards[myDeck[0].cardIndex].answer,
-              id: myDeck[0].id,
-              cardIndex: myDeck[0].cardIndex,
-              cardsLength: myDeck[0].cards.length
+              answer: myDeck.cards[myDeck.cardIndex].answer,
+              id: myDeck.id,
+              cardIndex: myDeck.cardIndex,
+              cardsLength: myDeck.cards.length
             })
           )}
       >
+        <Text>
+          You have {myDeck.cards.length - myDeck.cardIndex} question(s) left
+        </Text>
         <Text style={styles.question}>
-          {myDeck[0].cards[myDeck[0].cardIndex].question}
+          {myDeck.cards[myDeck.cardIndex].question}
         </Text>
         <Text style={styles.seeTheAnswer}>
           Touch anywhere to see the answer
@@ -55,8 +58,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state, { navigation }) => {
   return {
-    // como faço para que 'myDeck' seja um objeto e não um array de 1 posição?
-    myDeck: state.decks.filter(deck => deck.id === navigation.state.params.id)
+    myDeck: state.decks.find(deck => deck.id === navigation.state.params.id)
   }
 }
 
