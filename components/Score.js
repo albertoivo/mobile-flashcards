@@ -1,25 +1,48 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
-import { clearLocalNotification } from '../utils/notifications'
+import { NavigationActions } from 'react-navigation'
+import {
+  clearLocalNotification,
+  setLocalNotification
+} from '../utils/notifications'
 import { resetScoreAndIndex } from '../actions'
 import { red } from '../utils/colors'
 
 class Score extends React.Component {
   componentWillUnmount() {
     const { id } = this.props.navigation.state.params
+
     this.props.dispatch(resetScoreAndIndex(id))
-    clearLocalNotification()
+    clearLocalNotification().then(setLocalNotification())
   }
 
   restartQuiz() {
-    const { navigation, deck } = this.props
+    const { navigation, deck, dispatch } = this.props
+    const { id } = navigation.state.params
+
+    dispatch(resetScoreAndIndex(id))
+    this.reset()
     navigation.navigate('Quiz', deck)
   }
 
   backToDeck() {
-    const { navigation, deck } = this.props
+    const { navigation, deck, dispatch } = this.props
+    const { id } = navigation.state.params
+
+    dispatch(resetScoreAndIndex(id))
+    this.reset()
     navigation.navigate('Deck', { deck })
+  }
+
+  reset() {
+    const { id } = this.props.navigation.state.params
+    return this.props.navigation.dispatch(
+      NavigationActions.reset({
+        index: 0,
+        actions: [NavigationActions.navigate({ routeName: 'Home' })]
+      })
+    )
   }
 
   render() {
@@ -62,13 +85,15 @@ const styles = StyleSheet.create({
     margin: 4,
     textAlign: 'center',
     fontWeight: 'bold',
-    color: 'green'
+    color: 'green',
+    fontSize: 24
   },
   betterLuck: {
     margin: 4,
     textAlign: 'center',
     fontWeight: 'bold',
-    color: red
+    color: red,
+    fontSize: 16
   },
   homeBtn: {
     color: 'white',

@@ -10,22 +10,6 @@ export function clearLocalNotification() {
   )
 }
 
-function createNotification() {
-  return {
-    title: 'Study Study Study!',
-    body: "👋 don't forget to study your cards today!",
-    ios: {
-      sound: true
-    },
-    android: {
-      sound: true,
-      priority: 'high',
-      sticky: false,
-      vibrate: true
-    }
-  }
-}
-
 export function setLocalNotification() {
   AsyncStorage.getItem(NOTIFICATION_KEY)
     .then(JSON.parse)
@@ -50,4 +34,20 @@ export function setLocalNotification() {
         })
       }
     })
+}
+
+function createNotification() {
+  return {
+    title: 'Study Study Study!',
+    body: "👋 don't forget to study your cards today!",
+    ios: {
+      sound: true
+    },
+    android: {
+      sound: true,
+      priority: 'high',
+      sticky: false,
+      vibrate: true
+    }
+  }
 }

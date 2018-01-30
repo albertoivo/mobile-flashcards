@@ -94,11 +94,8 @@ const MainNavigator = StackNavigator({
   Score: {
     screen: Score,
     navigationOptions: {
-      title: 'Answer',
-      headerTintColor: 'white',
-      headerStyle: {
-        backgroundColor: 'black'
-      }
+      title: 'Score',
+      header: null
     }
   }
 })
@@ -107,6 +104,7 @@ export default class App extends React.Component {
   componentDidMount() {
     setLocalNotification()
   }
+
   render() {
     return (
       <Provider store={store}>
