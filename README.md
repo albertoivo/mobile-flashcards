@@ -35,7 +35,7 @@ Then install all the dependencies of project and start it:
 
 `yarn && yarn start`
 
-To view without a simulator installed in your computer, you just need to install the [Expo](https://expo.io/ app on your smartphone. It will allow you to scan the QR Code displayed in the Terminal to run the app.
+To view without a simulator installed in your computer, you just need to install the [Expo](https://expo.io/) app on your smartphone. It will allow you to scan the QR Code displayed in the Terminal to run the app.
 
 If all went well, you will see the Home Screen.
 
@@ -46,7 +46,7 @@ If all went well, you will see the Home Screen.
 
 ## Contributing
 
-We welcome contributions to Flashcards-mobile!
+I welcome contributions to this project!
 
 -   ⇄ Pull requests and ★ Stars are always welcome.
 
